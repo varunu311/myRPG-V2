@@ -1,6 +1,22 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
-    "strict": true
-  }
+    "target": "es6",        // You can target "es5" or newer
+    "module": "es6",        // CommonJS if you are using Node.js style imports
+    "jsx": "react",         // Important: This enables JSX
+    "lib": ["dom", "es6"],  // Include libraries
+    "moduleResolution": "node",
+    "allowJs": true,
+    "outDir": "./dist",     // Output directory for compiled files
+    "strict": true,         // Enable all strict type-checking options
+    "esModuleInterop": true,
+    "skipLibCheck": true,   // Skip type checking of declaration files
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": [
+    "./src/**/*"  // Adjust this path to include all your project files
+  ],
+  "exclude": [
+    "node_modules"  // Standard exclude
+  ]
 }

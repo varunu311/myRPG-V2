@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, ActivityIndicator, TouchableOpacity, Alert, Button } from 'react-native';
+import { View, Text, StyleSheet, TextInput, ActivityIndicator, TouchableOpacity, Alert, Button, Dimensions } from 'react-native';
 import { FIREBASE_Auth } from '../../FirebaseConfig';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 
 export default function Login() {
     const [email, setEmail] = useState('');
@@ -12,6 +13,7 @@ export default function Login() {
     const [loading, setLoading] = useState(false);
     const [isCreatingAccount, setIsCreatingAccount] = useState(false);
     const auth = FIREBASE_Auth;
+
 
     const SignIn = async() => {
         setLoading(true);
@@ -114,11 +116,19 @@ export default function Login() {
                 ) : (
                     <>
                         {isCreatingAccount ? (
-                            <Button title='Create Account' onPress={SignUp} color="#2196F3" />
+                            <View style={{top:300}}>
+                                <Button title='Create Account' onPress={SignUp} color="white" />
+                            </View>
                         ) : (
                             <>
-                                <Button title='Login' onPress={SignIn} color="#4CAF50" />
-                                <Button title='Create Account' onPress={() => setIsCreatingAccount(true)} color="#2196F3" />
+                            <View style={styles.ButtonLoc}>
+                                <View>
+                                    <Button title='Login' onPress={SignIn} color="white" />
+                                </View>
+                                <View>
+                                    <Button title='Create Account' onPress={() => setIsCreatingAccount(true)} color="white" />
+                                </View>
+                            </View>
                             </>
                         )}
                     </>
@@ -127,34 +137,40 @@ export default function Login() {
     );
 }
 
+const { width, height } = Dimensions.get('window');
+const scaleSize = (size:any) => (width / 375) * size;
+const scaleVertical = (size:any) => (height / 667) * size;
+
 const styles = StyleSheet.create({
     container: {
-        marginHorizontal: 20,
-        marginTop:75,
         flex: 1,
+        backgroundColor: '#180A22',
+        alignItems:'center',
     },
     input: {
-        marginVertical: 10,
+        width:350,
+        top:275,
+        marginVertical: 8,
         height: 50,
-        borderWidth: 1,
-        borderRadius: 8,
-        padding: 10,
-        backgroundColor: '#fff',
-        borderColor: '#ddd',
-        color: '#333',
+        borderRadius: 10,
+        padding: 15,
+        color: 'white',
+        borderWidth:1,
+        borderColor:'white',
+        backgroundColor:'#0D0611'
     },
     backButton: {
         alignSelf: 'flex-start',
-        top: 0,
+        top: 75,
         marginBottom: 20,
-        borderWidth: 1,
-        borderRadius: 8,
-        borderColor: '#ddd',
-        paddingHorizontal:15,
-        paddingVertical: 5
+        paddingHorizontal: 15,
+        paddingVertical: 5,
     },
     backButtonText: {
-        color: '#2196F3',
+        color: 'white',
         fontSize: 16,
+    },
+    ButtonLoc: {
+        top:300
     },
 });
